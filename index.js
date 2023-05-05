@@ -5,7 +5,6 @@ import session from 'express-session'
 import bodyParser from 'body-parser'
 import fileUpload from 'express-fileupload'
 import cors from 'cors'
-import history from 'connect-history-api-fallback'
 /*import axios from'axios'
 import fs from 'fs'*/
 //---- codes snippets ---------------
@@ -18,7 +17,7 @@ import user from './user.js'
 
 // connect to mysql db
 let con = mysql.createConnection({
-    host: "localhost",
+    host: "34.89.134.196",
     user: "root",
     password: "root",
     database: "guide"
@@ -26,11 +25,6 @@ let con = mysql.createConnection({
 //---------- express setting up --------------
 
 const app = express()
-
-app.use(history({
-    index: '/index.html'
-}))
-
 app.use(cookieParser());
 app.use(session({
     secret: "my fuckinggg secret sentences",
