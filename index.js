@@ -27,7 +27,7 @@ let con = mysql.createConnection({
 
 const app = express()
 
-app.use(history({
+/*app.use(history({
     rewrites: [
       {
         from: /^\/images\/.*$/,
@@ -36,7 +36,7 @@ app.use(history({
         }
       }
     ]
- }))
+ }))*/
 
 app.use(cookieParser());
 app.use(session({
