@@ -102,8 +102,8 @@ const publication = async(req, res,con) => {
             let i=index[index.length-1]
             let names = []
             console.log('selected files')
-            console.log(files)
-            for(const indexa in files) {
+            console.log(file)
+            for(const indexa in file) {
                 let image = files[indexa]
                 // If no image submitted, exit
                 if (!image) return names.push(400)
