@@ -104,7 +104,7 @@ const publication = async(req, res,con) => {
             console.log('selected files')
             console.log(file)
             for(const indexa in file) {
-                let image = files[indexa]
+                let image = file[indexa]
                 // If no image submitted, exit
                 if (!image) return names.push(400)
                 if (!(/^image/.test(image.mimetype))) return names.push(400)
