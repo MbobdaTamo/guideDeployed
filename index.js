@@ -27,7 +27,7 @@ let con = mysql.createConnection({
 
 const app = express()
 
-/*app.use(history({
+app.use(history({
     rewrites: [
       {
         from: /^\/images\/.*$/,
@@ -36,7 +36,7 @@ const app = express()
         }
       }
     ]
- })) */
+ }))
 
 app.use(cookieParser());
 app.use(session({
@@ -55,7 +55,7 @@ let cors1 = {origin:function(origin,callback){
 },methods:["POST","OPTIONS"],credentials:true}
 app.use(cors(cors1/*{methods:["POST","OPTIONS"],origin:"http://localhost:8080",credentials:true}*/))
 
-const port = 8080
+const port = 3000
 
 // body parser to retrieve informations
 app.use(bodyParser.urlencoded({ extended: false }))
