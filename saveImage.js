@@ -10,7 +10,7 @@ const saveImage = async(files,name,indexx) => {
         let image = files[index]
         // If no image submitted, exit
         if (!image) return names.push(400)
-        if (!(/^image/.test(image.mimetype))) return names.push(400)
+        //if (!(/^image/.test(image.mimetype))) return names.push(400)
 
         // Move the uploaded image to our upload folder
         //let name = image.name+Math.random().toString(36).substring(2, 15)+(new Date).getTime()

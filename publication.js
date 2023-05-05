@@ -97,35 +97,8 @@ const publication = async(req, res,con) => {
             imgIndex.push(i)
             let file = {}
             file['image'+i] = req.files[index]
-            //let c = await saveImage(file,req.body.imgName,index[index.length-1])
-            let name = req.body.imgName
-            let i1=index[index.length-1]
-            let names = []
-            console.log('selected files')
-            console.log(file)
-            for(const indexa in file) {
-                let image = file[indexa]
-                // If no image submitted, exit
-                if (!image) {
-                    console.log('none image')
-                    return names.push(400)
-                }
-                /*if (!(/^image/.test(image.mimetype))) {
-                    console.log("not an image")
-                    return names.push(400)
-                }*/
-                // Move the uploaded image to our upload folder
-                //let name = image.name+Math.random().toString(36).substring(2, 15)+(new Date).getTime()
-                let finalName = name + i1
-                image.mv('public/images/' + finalName)
-                console.log('public/images/' + finalName)
-                names.push('images/'+finalName)
-                i1++
-            }
-             
-            console.log("les noms des im: "+i)
+            await saveImage(file,req.body.imgName,index[index.length-1])
         }
-        console.log(imgIndex)
         //-------- let's save in the db ---------------------------
         let i = 0
         for(i=0;i<imgIndex.length;i++){
