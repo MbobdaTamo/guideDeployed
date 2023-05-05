@@ -1,7 +1,6 @@
 import saveImage from './saveImage.js'
 
 const publication = async(req, res,con) => {
-    req.session.dashGuideId = 6
     if(req.body.aim === "saveInfos") {
 
         // verification
@@ -51,13 +50,13 @@ const publication = async(req, res,con) => {
                 ${JSON.stringify(superficies)},
                 ${JSON.stringify(req.body.description)},
                 ${JSON.stringify(imgName)},
-                ${JSON.stringify(req.session.dashGuideId)},'','','',''
+                ${JSON.stringify(req.session.user.id)},'','','',''
                 )`)
                 
                 //--- increasing numberOfPlace in guide ------
                 await con.awaitQuery(`UPDATE Guide SET
                 numberOfPlace = numberOfPlace + 1
-                WHERE id = ${JSON.stringify(req.session.dashGuideId)}`)
+                WHERE id = ${JSON.stringify(req.session.user.id)}`)
 
                 //------ let's get the id to have all information as the user will be connected now  -----------------
                 let infos = await con.awaitQuery(`SELECT id FROM Place
@@ -85,7 +84,7 @@ const publication = async(req, res,con) => {
                 superficies = ${JSON.stringify(superficies)},
                 description = ${JSON.stringify(req.body.description)}
                 WHERE id = ${JSON.stringify(req.body.id)} 
-                AND guide = ${JSON.stringify(req.session.dashGuideId)}`)
+                AND guide = ${JSON.stringify(req.session.user.id)}`)
             
             res.send('done')    
         }
@@ -100,18 +99,16 @@ const publication = async(req, res,con) => {
             file['image'+i] = req.files[index]
             await saveImage(file,req.body.imgName,index[index.length-1])
         }
-
         //-------- let's save in the db ---------------------------
         let i = 0
         for(i=0;i<imgIndex.length;i++){
             await con.awaitQuery(`UPDATE Place SET 
             img${imgIndex[i]} = ${JSON.stringify(req.body.imgName+imgIndex[i])}
             WHERE id = ${JSON.stringify(req.body.id)}
-            AND guide = ${JSON.stringify(req.session.dashGuideId)}`)
+            AND guide = ${JSON.stringify(req.session.user.id)}`)
         }
         //----------- getting deleted images ---------------------------
         let imgIndexDel = []
-        console.log(req.body)
         for(const index in req.body) {
             if(req.body[index] === 'toDelete' ) {
                 console.log('the stuffs to be deleted: '+index[index.length-1])
@@ -123,14 +120,14 @@ const publication = async(req, res,con) => {
             await con.awaitQuery(`UPDATE Place SET 
             img${imgIndexDel[i]} = ''
             WHERE id = ${JSON.stringify(req.body.id)}
-            AND guide = ${JSON.stringify(req.session.dashGuideId)}`)
+            AND guide = ${JSON.stringify(req.session.user.id)}`)
         }
         res.send('done')
     }
 
     if(req.body.aim === "getPub") {
         let places = await con.awaitQuery(`SELECT * FROM Place 
-        WHERE guide = ${JSON.stringify(req.session.dashGuideId)} 
+        WHERE guide = ${JSON.stringify(req.session.user.id)} 
         AND deleted = 0 ORDER BY id DESC`)
         res.send(places)
     }
@@ -138,12 +135,12 @@ const publication = async(req, res,con) => {
         await con.awaitQuery(`UPDATE Place SET
             deleted = 1
             WHERE id = ${JSON.stringify(req.body.id)}
-            AND guide = ${JSON.stringify(req.session.dashGuideId)}`)
+            AND guide = ${JSON.stringify(req.session.user.id)}`)
         
         //--- decreasing numberOfPlace in guide ------
         await con.awaitQuery(`UPDATE Guide SET
             numberOfPlace = numberOfPlace - 1
-            WHERE id = ${JSON.stringify(req.session.dashGuideId)}`)
+            WHERE id = ${JSON.stringify(req.session.user.id)}`)
 
         res.send('done')
     }
