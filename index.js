@@ -48,7 +48,7 @@ let cors1 = {origin:function(origin,callback){
 },methods:["POST","OPTIONS"],credentials:true}
 app.use(cors(cors1/*{methods:["POST","OPTIONS"],origin:"http://localhost:8080",credentials:true}*/))
 
-const port = 8000
+const port = 80
 
 // body parser to retrieve informations
 app.use(bodyParser.urlencoded({ extended: false }))
