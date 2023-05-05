@@ -99,7 +99,7 @@ const publication = async(req, res,con) => {
             file['image'+i] = req.files[index]
             //let c = await saveImage(file,req.body.imgName,index[index.length-1])
             let name = req.body.imgName
-            let i=index[index.length-1]
+            let i1=index[index.length-1]
             let names = []
             console.log('selected files')
             console.log(file)
@@ -111,11 +111,11 @@ const publication = async(req, res,con) => {
 
                 // Move the uploaded image to our upload folder
                 //let name = image.name+Math.random().toString(36).substring(2, 15)+(new Date).getTime()
-                let finalName = name + i
+                let finalName = name + i1
                 image.mv('public/images/' + finalName)
                 console.log('public/images/' + finalName)
                 names.push('images/'+finalName)
-                i++
+                i1++
             }
              
             console.log("les noms des im: "+i)
