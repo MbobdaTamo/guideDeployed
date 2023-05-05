@@ -2,12 +2,17 @@ import saveImage from './saveImage.js'
 const inscription = async(req, res,con) => {
     
     // just for test plz delete them
-    req.session.user = {}
+    /*req.session.user = {}
     req.session.user.id = 6
-    req.session.user.imgName = 'imgName4pksht50hbv1680846480933'
+    req.session.user.imgName = 'imgName4pksht50hbv1680846480933'*/
 
     if (req.body.type === 'get') {
         //---decryption-----CAST(UNHEX(HEX(AES_DECRYPT(AES_ENCRYPT(id, 'frankkessie'),'frankkessie'))) AS CHAR(100)) AS id1,
+        if((typeof req.session.user.id === 'undefined') || (req.session.user.id === null)) {
+            res.send('error')
+            return
+        }
+        console.log(req.session.user)
         let guide = await con.awaitQuery(`
         SELECT HEX(AES_ENCRYPT(id, 'frankkessie')) AS id,
         name, email,

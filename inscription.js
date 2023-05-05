@@ -65,24 +65,10 @@ const inscription = async(req, res,con) => {
         //console.log(names)
 
 
-        /*req.session.user.name = 'name'
-        req.body.password = 'pw'
-        req.session.user.email ='email'
-        req.session.user.country = 'country'
-        req.session.user.city = 'city'
-        req.session.user.quater = "quater"
-        req.session.user.wage = '30000'
-        req.session.user.contact = 78787
-        req.session.user.typeCompte = 'type'
-        req.session.user.currency = 'currrnecy'
-        req.session.user.imgName = 'imgName'*/
-
-
-
         //--------- let's now save all the data in the db ---------------------
         await con.awaitQuery(`INSERT INTO 
             Guide(name, password, email, country, city, quater, wage, contact,type,
-                currency,description,imgName,numberOfImg,idRectoImg,idVersoImg)
+                currency,description,imgName,idRectoImg,idVersoImg)
             VALUES (${JSON.stringify(req.session.user.name)},
             ${JSON.stringify(req.session.user.password)},
             ${JSON.stringify(req.session.user.email)},
@@ -95,7 +81,6 @@ const inscription = async(req, res,con) => {
             ${JSON.stringify(req.session.user.currency)},
             ${JSON.stringify('')},
             ${JSON.stringify(req.session.user.imgName)},
-            0,
             ${JSON.stringify(req.session.user.idRectoImg)},
             ${JSON.stringify(req.session.user.idVersoImg)}
             )`)
@@ -103,7 +88,7 @@ const inscription = async(req, res,con) => {
             let userInfos = await con.awaitQuery(`SELECT * FROM Guide
             WHERE email = ${JSON.stringify(req.session.user.email)}
             AND password = ${JSON.stringify(req.session.user.password)}`)
-            req.session.user.id = userInfos[0].id
+            req.session.user = userInfos[0]
         res.send('done')
     }
 }
