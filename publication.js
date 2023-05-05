@@ -98,9 +98,8 @@ const publication = async(req, res,con) => {
             let file = {}
             file['image'+i] = req.files[index]
             let c = await saveImage(file,req.body.imgName,index[index.length-1])
-            console.log("les noms des images: "+c)
+            console.log("les noms des im: "+i)
         }
-        console.log(req.files)
         console.log(imgIndex)
         //-------- let's save in the db ---------------------------
         let i = 0
