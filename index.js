@@ -28,8 +28,15 @@ let con = mysql.createConnection({
 const app = express()
 
 app.use(history({
-    index: '/index.html'
-}))
+    rewrites: [
+      {
+        from: /^\/images\/.*$/,
+        to: function(context) {
+            return context.parsedUrl.path
+        }
+      }
+    ]
+ }))
 
 app.use(cookieParser());
 app.use(session({
