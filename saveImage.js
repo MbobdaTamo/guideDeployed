@@ -4,6 +4,8 @@ const saveImage = async(files,name,indexx) => {
        - indexx to differentiate images will be added at the end of the name */
     let i=indexx
     let names = []
+    console.log('selected files')
+    console.log(files)
     for(const index in files) {
         let image = files[index]
         // If no image submitted, exit
