@@ -1,6 +1,10 @@
 import saveImage from './saveImage.js'
 
 const publication = async(req, res,con) => {
+    if((typeof req.session.user === 'undefined') || (req.session.user === null)) {
+        res.send('error')
+        return
+    }
     if(req.body.aim === "saveInfos") {
 
         // verification

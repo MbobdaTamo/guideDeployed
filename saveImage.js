@@ -4,8 +4,6 @@ const saveImage = async(files,name,indexx) => {
        - indexx to differentiate images will be added at the end of the name */
     let i=indexx
     let names = []
-    console.log('selected files')
-    console.log(files)
     for(const index in files) {
         let image = files[index]
         // If no image submitted, exit
@@ -16,7 +14,6 @@ const saveImage = async(files,name,indexx) => {
         //let name = image.name+Math.random().toString(36).substring(2, 15)+(new Date).getTime()
         let finalName = name + i
         image.mv('public/images/' + finalName)
-        console.log('public/images/' + finalName)
         names.push('images/'+finalName)
         i++
     }

@@ -11,6 +11,10 @@ const guideClient = async(req, res,con) => {
         FROM Guide
         WHERE id = CAST(UNHEX(HEX(AES_DECRYPT(UNHEX(${JSON.stringify(req.body.id)}),'frankkessie'))) AS CHAR(100))
         AND deleted = 0`)
+        if(guide.length === 0) {
+            res.send('error')
+            return
+        }
         req.session.guideId = guide[0].id
         res.send(guide[0])
     }
