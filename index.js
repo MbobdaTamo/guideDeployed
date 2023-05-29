@@ -20,7 +20,7 @@ import user from './user.js'
 let con = mysql.createConnection({
     host: "34.89.134.196",
     user: "root",
-    password: "root",
+    password: "Dembele2000*",
     database: "guide"
 })
 //---------- express setting up --------------
